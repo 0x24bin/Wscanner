@@ -10,9 +10,14 @@
 
 from mitmproxy import controller, options, master
 from mitmproxy.proxy import ProxyServer, ProxyConfig
+import argparse
 
 
 class Wsproxy(master.Master):
+    def __init__(self, myopts, myserver, pid):
+        super(Wsproxy, self).__init__(myopts, myserver)
+        print("Wsproxy pid is", pid)
+
     def run(self):
         try:
             print("Wsproxy is running!")
@@ -24,8 +29,17 @@ class Wsproxy(master.Master):
     def request(self, f):
         print("Wsproxy", "[", f.request.method, "]", f.request.url)
 
-opts = options.Options(cadir="/tmp/Wsproxy/")
-config = ProxyConfig(opts)
-server = ProxyServer(config)
-m = Wsproxy(opts, server)
-m.run()
+
+if __name__ == '__main__':
+
+    parse = argparse.ArgumentParser(description="Wscanner, A another sqli scanner.")
+    parse.add_argument('-p', '--project', type=int, dest="pid", default=0, help="Project that need to be scanned")
+    args = parse.parse_args()
+
+    # Wsproxy Config
+    opts = options.Options(cadir="~/.mitmproxy/")
+    config = ProxyConfig(opts)
+    server = ProxyServer(config)
+    m = Wsproxy(opts, server, args.pid)
+    # run Wsproxy
+    m.run()
