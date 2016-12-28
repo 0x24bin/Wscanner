@@ -7,28 +7,8 @@
 
 """
 
-
-from mitmproxy import controller, options, master
-from mitmproxy.proxy import ProxyServer, ProxyConfig
+from lib.Wsproxy import *
 import argparse
-
-
-class Wsproxy(master.Master):
-    def __init__(self, myopts, myserver, pid):
-        super(Wsproxy, self).__init__(myopts, myserver)
-        print("Wsproxy pid is", pid)
-
-    def run(self):
-        try:
-            print("Wsproxy is running!")
-            master.Master.run(self)
-        except KeyboardInterrupt:
-            self.shutdown()
-
-    @controller.handler
-    def request(self, f):
-        print("Wsproxy", "[", f.request.method, "]", f.request.url)
-
 
 if __name__ == '__main__':
 
@@ -40,6 +20,14 @@ if __name__ == '__main__':
     opts = options.Options(cadir="~/.mitmproxy/")
     config = ProxyConfig(opts)
     server = ProxyServer(config)
-    m = Wsproxy(opts, server, args.pid)
+    db_config = {
+        'host': '127.0.0.1',
+        'user': 'root',
+        'password': 'hacksb',
+        'db': 'Wscanner',
+        'port': 3306,
+        'charset': 'utf8'
+    }
     # run Wsproxy
+    m = Wsproxy(opts, server, args.pid, db_config)
     m.run()
