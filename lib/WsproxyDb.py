@@ -35,4 +35,4 @@ class WsproxyDb(object):
             self.sql = "insert into ws_url(pid, method, url, raw) values (%s,%s,%s,%s)"
             cursor.execute(self.sql, (self.data['pid'], self.data['method'], self.data['url'], self.data['raw']))
         self.connection.commit()
-
+        cursor.close()

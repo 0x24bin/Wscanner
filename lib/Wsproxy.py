@@ -25,7 +25,11 @@ class Wsproxy(master.Master):
             print("Wsproxy is running!")
             master.Master.run(self)
         except KeyboardInterrupt:
-            self.wsdb.connection.close()
+            try:
+                self.wsdb.connection.close()
+                print("mysql is close")
+            except Exception as e:
+                print("mysql close error:", e)
             self.shutdown()
 
     @controller.handler
