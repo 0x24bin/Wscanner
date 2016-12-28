@@ -25,6 +25,7 @@ class Wsproxy(master.Master):
             print("Wsproxy is running!")
             master.Master.run(self)
         except KeyboardInterrupt:
+            self.wsdb.connection.close()
             self.shutdown()
 
     @controller.handler
