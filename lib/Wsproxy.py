@@ -36,5 +36,5 @@ class Wsproxy(master.Master):
     def request(self, f):
         print("Wsproxy", "[", f.request.method, "]", f.request.url)
         # 调用WsproxyDb存入数据库
-        # TODO：过滤静态资源
         self.wsdb.log_url(f.request)
+
