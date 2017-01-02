@@ -29,15 +29,15 @@ class WsproxyDb(object):
 
     def log_url(self, request):
         # 检查url有效性,有效则入库
-        print(self.check_url(request))
         if self.check_url(request):
             self.data['pid'] = self.pid
             self.data['method'] = request.method
             self.data['url'] = request.url
-            self.data['raw'] = request.raw_content
+            self.data['data'] = request.content
+            self.data['headers'] = bytes(request.headers)
             with self.connection.cursor() as cursor:
-                self.sql = "insert into ws_url(pid, method, url, raw) values (%s,%s,%s,%s)"
-                cursor.execute(self.sql, (self.data['pid'], self.data['method'], self.data['url'], self.data['raw']))
+                self.sql = "insert into ws_url(pid, method, url, data, headers) values (%s, %s, %s, %s, %s)"
+                cursor.execute(self.sql, (self.data['pid'], self.data['method'], self.data['url'], self.data['data'], self.data['headers']))
             self.connection.commit()
             cursor.close()
 
