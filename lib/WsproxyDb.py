@@ -19,13 +19,17 @@ class WsproxyDb(object):
         self.db_config = db_config
         for key, value in self.db_config.items():
             setattr(self, key, value)
-        self.connection = pymysql.connect(host=self.host,
-                                          user=self.user,
-                                          password=self.password,
-                                          db=self.db,
-                                          charset=self.charset,
-                                          cursorclass=pymysql.cursors.DictCursor
-                                          )
+        try:
+            self.connection = pymysql.connect(host=self.host,
+                                              user=self.user,
+                                              password=self.password,
+                                              db=self.db,
+                                              charset=self.charset,
+                                              cursorclass=pymysql.cursors.DictCursor
+                                              )
+        except pymysql.err.OperationalError:
+            print('Mysql connect error, Please check your mysql config.')
+            quit()
 
     def log_url(self, request):
         # 检查url有效性,有效则入库
