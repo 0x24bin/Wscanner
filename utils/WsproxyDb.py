@@ -31,6 +31,13 @@ class WsproxyDb(object):
             print('Mysql connect error, Please check your mysql config.')
             quit()
 
+    def get_url(self, sqli):
+        with self.connection.cursor() as cursor:
+            self.sql = "select * from ws_url where sqli=%s"
+            cursor.execute(self.sql, sqli)
+            result = cursor.fetchone()
+            return result
+
     def log_url(self, request):
         # 检查url有效性,有效则入库
         if self.check_url(request):
