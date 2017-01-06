@@ -9,11 +9,4 @@
 
 import sys
 import os
-sys.path.insert(0, os.getcwd()+'/lib/sqlmap/')
-import sqlmap as sqlmap_api
-
-# TODO:取出url保存到tmp目录
-
-# 运行sqlmap
-sqlmap_api.main()
-
+sys.path.insert(0, os.getcwd()+'/utils/sqlmap/')
