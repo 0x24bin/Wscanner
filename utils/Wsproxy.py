@@ -9,7 +9,7 @@
 
 from mitmproxy.proxy import ProxyServer, ProxyConfig
 from mitmproxy import controller, options, master
-from lib.WsproxyDb import *
+from utils.WsproxyDb import *
 
 
 class Wsproxy(master.Master):

@@ -10,7 +10,7 @@ method| varchar(10)		| 可为空,默认为GET | url的请求方式
 url	  | text 		| 不可为空		| 完整的url
 data  | text        | 可为空         | POST的数据包
 headers| text        | 不可为空		| 请求头,headers
-sqli  | int(11)		| 可为空,默认为0 | 是否存在SQL注入,0代表`没有扫描`,1代表`正在扫描`,2代表`存在漏洞`
+sqli  | int(11)		| 可为空,默认为0 | 是否存在SQL注入,0代表`没有扫描`,1代表`正在扫描`,2代表`存在漏洞`,3代表`没有漏洞`
 create_time | timestamp | 可为空,默认为当前时间 | Mysql会自动插入当前时间
 
 建表语句：

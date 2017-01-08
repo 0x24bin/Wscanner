@@ -31,6 +31,13 @@ class WsproxyDb(object):
             print('Mysql connect error, Please check your mysql config.')
             quit()
 
+    def update_url_status(self, url_id, status):
+        with self.connection.cursor() as cursor:
+            self.sql = "update ws_url set sqli=%s where id=%s"
+            cursor.execute(self.sql, (status, url_id))
+        self.connection.commit()
+        cursor.close()
+
     def get_url(self, sqli):
         with self.connection.cursor() as cursor:
             self.sql = "select * from ws_url where sqli=%s"

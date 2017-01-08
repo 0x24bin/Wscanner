@@ -9,14 +9,14 @@ class SqlmapApi(object):
     VULN_STR = "[INFO] the back-end DBMS is"
     NOT_VULN_STR = 'all tested parameters appear to be not injectable'
 
-    SQLMAP_PARAM = '-r %s --batch --threads=10 --smart'
+    SQLMAP_PARAM = ' --batch --threads=10 --smart'
     SQLMAP_RESULT = ''
 
     def __init__(self):
         self.SQLMAP_PATH = os.getcwd() + '/utils/sqlmap/sqlmap.py'
 
     def start(self, url_file):
-        self.SQLMAP_PARAM = self.SQLMAP_PARAM % url_file
+        self.SQLMAP_PARAM = "-r " + url_file + self.SQLMAP_PARAM
         cmd = "python %s %s" % (self.SQLMAP_PATH, self.SQLMAP_PARAM)
         self.SQLMAP_RESULT = os.popen(cmd).read()
 

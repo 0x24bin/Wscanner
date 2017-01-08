@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -7,7 +7,7 @@
 
 """
 
-from lib.Wsproxy import *
+from utils.Wsproxy import *
 import argparse
 
 if __name__ == '__main__':
