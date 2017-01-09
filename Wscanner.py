@@ -7,7 +7,9 @@
 
 """
 
+import time
 import argparse
+import threading
 from utils.class_Wscanner import Wscanner
 
 if __name__ == '__main__':
@@ -25,4 +27,20 @@ if __name__ == '__main__':
         'charset': 'utf8'
     }
     scanner = Wscanner(db_config, args.pid)
-    scanner.run()
+
+    for i in range(10):
+        t = threading.Thread(target=scanner.run)
+        t.setDaemon(True)
+        t.start()
+
+    while True:
+        if threading.activeCount() <= 1:
+            break
+        else:
+            try:
+                time.sleep(0.1)
+            except KeyboardInterrupt, e:
+                print '\n[WARNING] User aborted, wait all slave threads to exit, current(%i)' % threading.activeCount()
+                scanner.STOP_ME = True
+
+    print "Scan End!"

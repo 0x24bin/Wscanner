@@ -38,11 +38,11 @@ class WsproxyDb(object):
         self.connection.commit()
         cursor.close()
 
-    def get_url(self, sqli):
+    def get_url(self, pid, sqli):
         with self.connection.cursor() as cursor:
-            self.sql = "select * from ws_url where sqli=%s"
-            cursor.execute(self.sql, sqli)
-            result = cursor.fetchone()
+            self.sql = "select * from ws_url where sqli=%s and pid=%s"
+            cursor.execute(self.sql, (sqli, pid))
+            result = cursor.fetchall()
             return result
 
     def log_url(self, request):
