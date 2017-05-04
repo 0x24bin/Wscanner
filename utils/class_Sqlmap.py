@@ -15,7 +15,7 @@ class SqlmapApi(object):
         self.SQLMAP_PATH = os.getcwd() + '/utils/sqlmap/sqlmap.py'
 
     def start(self, url_file):
-        self.SQLMAP_PARAM = "-r " + url_file + " --batch --smart"
+        self.SQLMAP_PARAM = "-r " + url_file + " --batch --risk 3"
         cmd = "python %s %s" % (self.SQLMAP_PATH, self.SQLMAP_PARAM)
         self.SQLMAP_RESULT = os.popen(cmd).read()
 

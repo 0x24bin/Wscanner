@@ -28,7 +28,7 @@ if __name__ == '__main__':
     }
     scanner = Wscanner(db_config, args.pid)
 
-    for i in range(10):
+    for i in range(1):
         t = threading.Thread(target=scanner.run)
         t.setDaemon(True)
         t.start()
@@ -39,8 +39,8 @@ if __name__ == '__main__':
         else:
             try:
                 time.sleep(0.1)
-            except KeyboardInterrupt, e:
-                print '\n[WARNING] User aborted, wait all slave threads to exit, current(%i)' % threading.activeCount()
+            except KeyboardInterrupt as e:
+                print('\n[WARNING] User aborted, wait all slave threads to exit, current(%i)' % threading.activeCount())
                 scanner.STOP_ME = True
 
-    print "Scan End!"
+    print("Scan End!")
